@@ -1,0 +1,56 @@
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<form [formGroup]="urlaubstageForm" (ngSubmit)="submitHandler()">
+				<div class="form-row">
+					<div class="form-group my-sm-3 col">
+						<label>Days</label>
+						<input type="text" formControlName="urlaub" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.urlaub.errors }" />
+						<div *ngIf="submitted && f.urlaub.errors" class="invalid-feedback">
+							<div *ngIf="f.urlaub.errors.required">Days are required</div>
+						</div>
+					</div>
+				</div>
+				<div formArrayName="sonderurlaube">
+					<div class="form-row">
+						<div class="form-group col-2 h-25 mb-0">
+							<label></label>
+						</div>
+						<div class="form-group col-2 h-25 mb-0">
+							<label></label>
+						</div>
+						<div class="form-group col-2 h-25 mb-0">
+							<label></label>
+						</div>
+					</div>
+					<div *ngFor="let sonderurlaub of sonderurlaubForms.controls; let i=index" [formGroupName]="i"
+						class="form-row">
+						<div class="form-group col-2">
+							<input type="number" formControlName='anzahlTage' class="form-control" [ngClass]="{ 'is-invalid': submitted && sonderurlaub.get('anzahlTage').errors }" />
+							<div *ngIf="submitted && sonderurlaub.get('anzahlTage').errors" class="invalid-feedback">
+								<div *ngIf="sonderurlaub.get('anzahlTage').errors.required">Days are required</div>
+							</div>
+						</div>
+						<div class="form-group col-6">
+							<input type="text" formControlName='anmerkung' class="form-control" [ngClass]="{ 'is-invalid': submitted && sonderurlaub.get('anmerkung').errors }" />
+							<div *ngIf="submitted && sonderurlaub.get('anmerkung').errors" class="invalid-feedback">
+								<div *ngIf="sonderurlaub.get('anmerkung').errors.required">Text is required</div>
+							</div>
+						</div>
+						<div class="form-group col-2">
+							<button *ngIf="i > 0" (click)="deleteSonderurlaub(i)" type="button" class="btn btn-block btn-danger">delete</button>
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-8">
+						<button *ngIf="sonderurlaubForms.controls.length < 4" type="button" class="btn btn-outline-secondary btn-sm pull-right" (click)="addSonderurlaub()"><i class="fa fa-plus"></i> Add rows</button>
+					</div>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-success" type="submit">Save form</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
