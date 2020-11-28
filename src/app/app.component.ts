@@ -43,17 +43,29 @@ export class AppComponent implements OnInit {
     control.push(sonderurlaub);
   }
 
+  removevalidation(){
+    const control = this.sonderurlaubForms.controls;
+        for(let i = control.length-1; i >= 0; i--) {
+            this.sonderurlaubForms.removeAt(i)
+    }
+
+  }
+
   deleteSonderurlaub(i) {
     this.sonderurlaubForms.removeAt(i)
   }
 
   async submitHandler() {
+    
+    //delete this.sonderurlaubForms.value[0].anzahlTage;
     this.submitted = true;
     // stop here if form is invalid
     if (this.urlaubstageForm.invalid) {
       return;
     }
-    console.log(this.sonderurlaubForms.value);
+    
+    console.log(JSON.stringify(this.sonderurlaubForms.value));
+    console.log(this.sonderurlaubForms.value[0].anzahlTage);
 
   }
 
